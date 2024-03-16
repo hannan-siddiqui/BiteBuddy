@@ -1,0 +1,28 @@
+{
+  "name": "bitebuddy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hannan-siddiqui/BiteBuddy.git"
+  },
+  "author": "hannan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hannan-siddiqui/BiteBuddy/issues"
+  },
+  "homepage": "https://github.com/hannan-siddiqui/BiteBuddy#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
