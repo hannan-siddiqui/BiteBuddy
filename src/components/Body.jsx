@@ -2,12 +2,13 @@ import Restaurantcard from "./RestaurantCard";
 // import {resdata} from "../utils/mockdata";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = ()=>{
     
 
     const [reslist, setreslist] = useState([]);
-    const[filteresres, setfilteredres] = useState([]);
+    const[filteredsres, setfilteredres] = useState([]);
     const[searchtext, setsearchtext] = useState("");
     
     useEffect(()=>{
@@ -22,13 +23,15 @@ const Body = ()=>{
 
         setreslist(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setfilteredres(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        
 
     }
 
 // conditionaling rendering ..........
 
+ if (filteredsres.length == 0 ) return <Shimmer/>
 
-    return reslist.length===0?<Shimmer/>:(
+    return (
         <div className="body">
             <div className="filter">
 
@@ -41,8 +44,9 @@ const Body = ()=>{
                 />
                 <button
                 onClick = { () => {
+
                     const filteredres = reslist.filter((res)=>
-                        res.info.name.toLowerCase().includes(searchtext.toLowerCase())
+                        (res.info.name.toLowerCase().includes(searchtext.toLowerCase()))
                     );
 
                     setfilteredres(filteredres);
@@ -71,9 +75,13 @@ const Body = ()=>{
             <div className="rescon">
 
                 {
-                    filteresres.map((res) =>(<Restaurantcard 
-                    key ={res?.info?.id}    
-                    resdata = {res}/>))
+                   
+                    filteredsres.map((res) => (
+                        <Link key={res?.info?.id} to={"/restaurants/"+res?.info?.id}>
+                            <Restaurantcard resdata={res}/>
+                        </Link>
+                    )) 
+                   
                 }
                 
 
