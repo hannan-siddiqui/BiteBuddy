@@ -3,7 +3,7 @@
     {
         "info": {
             "id": "626148",
-            "name": "La Pino'z Pizza",
+            "name": "Darth Vader",
             "cloudinaryImageId": "ezjogwtzx40ko0wlat5l",
             "locality": "Salt Lake",
             "areaName": "Karol Bagh",

@@ -3,6 +3,7 @@ import Restaurantcard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import online from "../utils/online";
 
 const Body = ()=>{
     
@@ -10,6 +11,7 @@ const Body = ()=>{
     const [reslist, setreslist] = useState([]);
     const[filteredsres, setfilteredres] = useState([]);
     const[searchtext, setsearchtext] = useState("");
+
     
     useEffect(()=>{
         fetchdata()
@@ -21,13 +23,17 @@ const Body = ()=>{
         const json = await data.json();
         // console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
-        setreslist(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setfilteredres(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setreslist(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setfilteredres(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         
 
     }
 
 // conditionaling rendering ..........
+const onlineStatus = online();
+
+if (onlineStatus===false)  return <h1> Offline </h1>
+
 
  if (filteredsres.length == 0 ) return <Shimmer/>
 
