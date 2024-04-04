@@ -1,4 +1,4 @@
-import Restaurantcard from "./RestaurantCard";
+import Restaurantcard , {Promoted} from "./RestaurantCard";
 // import {resdata} from "../utils/mockdata";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
@@ -12,6 +12,9 @@ const Body = ()=>{
     const[filteredsres, setfilteredres] = useState([]);
     const[searchtext, setsearchtext] = useState("");
 
+    const Promote = Promoted(Restaurantcard);
+
+
     
     useEffect(()=>{
         fetchdata()
@@ -23,11 +26,14 @@ const Body = ()=>{
         const json = await data.json();
         // console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
-        setreslist(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setfilteredres(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setreslist(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setfilteredres(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         
 
     }
+    // console.log(reslist)
+
+    
 
 // conditionaling rendering ..........
 const onlineStatus = online();
@@ -39,16 +45,16 @@ if (onlineStatus===false)  return <h1> Offline </h1>
 
     return (
         <div className="body">
-            <div className="filter">
+            <div className="flex  items-center" >
 
-            <div className="search">
-                <input type="text" className="searchbox" value={searchtext}
+            <div className="m-4 p-4 ">
+                <input type="text" className="searchbox border border-solid border-black" value={searchtext}
                 onChange={(e)=>{
                     setsearchtext(e.target.value);
                 }}
                 
                 />
-                <button
+                <button className="bg-red-400 mx-3 px-4  rounded-xl "
                 onClick = { () => {
 
                     const filteredres = reslist.filter((res)=>
@@ -61,30 +67,39 @@ if (onlineStatus===false)  return <h1> Offline </h1>
 
                 >Search</button>
             </div>
-            
-            <button className="filterbtn"
 
-                onClick={ ()=>{
-                    const topres = reslist.filter(
-                        (res)=>res.info.avgRating>4
-                    )
-                    setfilteredres(topres); 
-                }
-                }
+            <div>
+            <button className="bg-red-400  px-4  rounded-xl  "
 
-            >
-                Top-Rated Res
+            onClick={ ()=>{
+            const topres = reslist.filter(
+            (res)=>res.info.avgRating>4
+            )
+            setfilteredres(topres); 
+            }
+            }
+
+                >
+            Top-Rated Res
             </button>
+
+            </div>
+            
+           
             
             </div>
 
-            <div className="rescon">
+
+
+            <div className="flex flex-wrap">
 
                 {
                    
                     filteredsres.map((res) => (
                         <Link key={res?.info?.id} to={"/restaurants/"+res?.info?.id}>
-                            <Restaurantcard resdata={res}/>
+
+                            {res?.info?.veg?<Promote resdata={res}/>:<Restaurantcard resdata={res}/>}
+                        
                         </Link>
                     )) 
                    
