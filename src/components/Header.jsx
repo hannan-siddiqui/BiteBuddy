@@ -16,12 +16,12 @@ const Header = ()=>{
     // console.log(cartItems);
 
     return (
-        <div className="flex justify-between bg-pink-300 m-2 shadow-lg">
+        <div className="flex justify-between bg-stone-300 m-2 shadow-lg">
             <div className="logocon p-7">
-                <img className="w-20 " src={LOGO_URL}></img>
+                <img className="w-20 " src={LOGO_URL}></img> 
             </div>
-            <div className="flex items-centre">
-                <ul className="flex p-4 m-4">
+            <div className="flex items-centre ">
+                <ul className="flex p-4 m-4 text-2xl font-semibold text-neutral-700">
                     <li className="px-4"> status :{on?"online":"offline"} </li>
                     <li className="px-4"><Link to="/">Home</Link></li>
                     <li className="px-4"><Link to="/grocery">Grocery</Link></li>
